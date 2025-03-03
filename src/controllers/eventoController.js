@@ -11,7 +11,7 @@ class EventoController {
     }
   }
 
-  // Obtener un evento por ID
+  // Obtener un evento por su id
   async getEventoById(req, res) {
     try {
       const { id } = req.params;
