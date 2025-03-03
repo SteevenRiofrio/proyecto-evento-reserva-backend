@@ -11,7 +11,7 @@ class AsistenteController {
     }
   }
 
-  // Obtener un asistente por ID
+  // Obtener un asistente por el ID
   async getAsistenteById(req, res) {
     try {
       const { id } = req.params;
