@@ -1,63 +1,63 @@
-const eventoService = require('../services/eventoService');
+const eventService = require('../services/eventService');
 
-class EventoController {
+class EventController {
   // Obtener todos los eventos
-  async getAllEventos(req, res) {
+  async getAllEvents(req, res) {
     try {
-      const eventos = await eventoService.getAllEventos();
-      return res.status(200).json(eventos);
+      const events = await eventService.getAllEvents();
+      return res.status(200).json(events);
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }
   }
 
   // Obtener un evento por su id
-  async getEventoById(req, res) {
+  async getEventById(req, res) {
     try {
       const { id } = req.params;
-      const evento = await eventoService.getEventoById(id);
+      const event = await eventService.getEventById(id);
       
-      if (!evento) {
+      if (!event) {
         return res.status(404).json({ message: 'Evento no encontrado' });
       }
       
-      return res.status(200).json(evento);
+      return res.status(200).json(event);
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }
   }
 
   // Crear un nuevo evento
-  async createEvento(req, res) {
+  async createEvent(req, res) {
     try {
-      const evento = await eventoService.createEvento(req.body);
-      return res.status(201).json(evento);
+      const event = await eventService.createEvent(req.body);
+      return res.status(201).json(event);
     } catch (error) {
       return res.status(400).json({ error: error.message });
     }
   }
 
   // Actualizar un evento
-  async updateEvento(req, res) {
+  async updateEvent(req, res) {
     try {
       const { id } = req.params;
-      const evento = await eventoService.updateEvento(id, req.body);
+      const event = await eventService.updateEvent(id, req.body);
       
-      if (!evento) {
+      if (!event) {
         return res.status(404).json({ message: 'Evento no encontrado' });
       }
       
-      return res.status(200).json(evento);
+      return res.status(200).json(event);
     } catch (error) {
       return res.status(400).json({ error: error.message });
     }
   }
 
   // Eliminar un evento
-  async deleteEvento(req, res) {
+  async deleteEvent(req, res) {
     try {
       const { id } = req.params;
-      const deleted = await eventoService.deleteEvento(id);
+      const deleted = await eventService.deleteEvent(id);
       
       if (!deleted) {
         return res.status(404).json({ message: 'Evento no encontrado' });
@@ -70,4 +70,4 @@ class EventoController {
   }
 }
 
-module.exports = new EventoController();
+module.exports = new EventController();

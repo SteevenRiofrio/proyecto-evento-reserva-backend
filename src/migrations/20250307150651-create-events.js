@@ -1,36 +1,40 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('eventos', {
+    await queryInterface.createTable('events', {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4
       },
-      nombre: {
-        type: Sequelize.STRING(255),
+      name: {
+        type: Sequelize.STRING(100),
         allowNull: false
       },
-      fecha: {
+      description: {
+        type: Sequelize.TEXT,
+        allowNull: true
+      },
+      date: {
         type: Sequelize.DATE,
         allowNull: false
       },
-      lugar: {
-        type: Sequelize.STRING(255),
+      capacity: {
+        type: Sequelize.INTEGER,
         allowNull: false
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE
       }
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('eventos');
+    await queryInterface.dropTable('events');
   }
 };

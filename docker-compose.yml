@@ -2,8 +2,8 @@ version: '3.8'
 
 services:
   postgres:
-    image: postgres:14
-    container_name: eventos_postgres
+    image: postgres:14-alpine
+    container_name: events_postgres
     ports:
       - "5432:5432"
     environment:
@@ -13,24 +13,30 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - app-network
+      - eventos_network
+    restart: unless-stopped
 
+  # Opcional: Añadir interfaz admin para la base de datos
   pgadmin:
     image: dpage/pgadmin4
-    container_name: eventos_pgadmin
-    depends_on:
-      - postgres
+    container_name: events_pgadmin
     ports:
       - "5050:80"
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
       PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
     networks:
-      - app-network
+      - eventos_network
+    depends_on:
+      - postgres
+    restart: unless-stopped
 
 volumes:
   postgres_data:
+  pgadmin_data:
 
 networks:
-  app-network:
+  eventos_network:
     driver: bridge
